@@ -16,13 +16,20 @@ var retryPolicy = Policy
         }
     );
 
-var result = await retryPolicy.ExecuteAsync(async () =>
+try
 {
-    var response = await client.GetAsync("https://fakestoreapia.com/products");
-    response.EnsureSuccessStatusCode();
+    var result = await retryPolicy.ExecuteAsync(async () =>
+    {
+        var response = await client.GetAsync("https://fakestoreapi.com/products");
+        response.EnsureSuccessStatusCode();
 
-    string jsonStr = await response.Content.ReadAsStringAsync();
-    return jsonStr;
-});
+        string jsonStr = await response.Content.ReadAsStringAsync();
+        return jsonStr;
+    });
 
-result.Dump();
+    result.Dump();
+}
+catch (Exception ex)
+{
+    throw new Exception(ex.Message);
+}
