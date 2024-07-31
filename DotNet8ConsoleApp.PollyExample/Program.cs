@@ -10,8 +10,11 @@ var retryPolicy = Policy
         sleepDurationProvider: retryAttempt => TimeSpan.FromSeconds(10),
         onRetryAsync: async (exception, timespan, retryAttempt, context) =>
         {
-            Console.WriteLine($"Retry attempt {retryAttempt} after {timespan.TotalSeconds} seconds due to: {exception.Message}");
-        });
+            Console.WriteLine(
+                $"Retry attempt {retryAttempt} after {timespan.TotalSeconds} seconds due to: {exception.Message}"
+            );
+        }
+    );
 
 var result = await retryPolicy.ExecuteAsync(async () =>
 {
