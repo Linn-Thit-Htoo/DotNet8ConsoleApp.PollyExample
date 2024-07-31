@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35005.142
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNet8ConsoleApp.PollyExample", "DotNet8ConsoleApp.PollyExample\DotNet8ConsoleApp.PollyExample.csproj", "{0880867B-AF54-4258-AA2A-2CCEA8DB7B9F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0880867B-AF54-4258-AA2A-2CCEA8DB7B9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0880867B-AF54-4258-AA2A-2CCEA8DB7B9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0880867B-AF54-4258-AA2A-2CCEA8DB7B9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0880867B-AF54-4258-AA2A-2CCEA8DB7B9F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E2E8674C-3E52-4F0F-95A4-AA2D0480127B}
+	EndGlobalSection
+EndGlobal
