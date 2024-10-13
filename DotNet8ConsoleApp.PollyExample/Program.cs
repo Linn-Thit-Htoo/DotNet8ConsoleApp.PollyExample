@@ -1,7 +1,4 @@
 ﻿using Polly;
-using System.Net.Http;
-using System;
-using System.Threading.Tasks;
 using Dumpify;
 
 var client = new HttpClient();
