@@ -1,5 +1,5 @@
-﻿using Polly;
-using Dumpify;
+﻿using Dumpify;
+using Polly;
 
 var client = new HttpClient();
 
