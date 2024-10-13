@@ -1,9 +1,25 @@
-﻿using Dumpify;
-using Polly;
+﻿using Polly;
+using System.Net.Http;
+using System;
+using System.Threading.Tasks;
+using Dumpify;
 
 var client = new HttpClient();
 
-var retryPolicy = Policy
+var fallbackPolicy = Policy<string>
+    .Handle<HttpRequestException>()
+    .Or<Exception>()
+    .FallbackAsync(
+        fallbackValue: "Fallback: Could not retrieve products.",
+        onFallbackAsync: async (exception, context) =>
+        {
+            string fallbackMessage = $"Executing fallback due to: {exception}";
+            fallbackMessage.Dump();
+            await Task.CompletedTask;
+        }
+    );
+
+var retryPolicy = Policy<string>
     .Handle<HttpRequestException>()
     .WaitAndRetryAsync(
         retryCount: 2,
@@ -11,16 +27,19 @@ var retryPolicy = Policy
         onRetryAsync: async (exception, timespan, retryAttempt, context) =>
         {
             string message =
-                $"Retry attempt {retryAttempt} after {timespan.TotalSeconds} seconds due to: {exception.Message}";
+                $"Retry attempt {retryAttempt} after {timespan.TotalSeconds} seconds due to: {exception}";
             message.Dump();
+            await Task.CompletedTask;
         }
     );
 
+var policyWrap = Policy.WrapAsync(fallbackPolicy, retryPolicy);
+
 try
 {
-    var result = await retryPolicy.ExecuteAsync(async () =>
+    var result = await policyWrap.ExecuteAsync(async () =>
     {
-        var response = await client.GetAsync("https://fakestoreapi.com/products");
+        var response = await client.GetAsync("https://fakestoreapis.com/products");
         response.EnsureSuccessStatusCode();
 
         string jsonStr = await response.Content.ReadAsStringAsync();
